@@ -31,8 +31,8 @@ export default class App extends Component {
           movie.id,
           `https://image.tmdb.org/t/p/w200/${movie.poster_path}`,
           movie.original_title,
-					`${format(parseISO(movie.release_date), 'MMMM d, yyyy')}`,
-					`${this.formatMovieDescription(movie.overview)}`
+          `${format(parseISO(movie.release_date), 'MMMM d, yyyy')}`,
+          `${this.formatMovieDescription(movie.overview)}`
         )
       );
 
@@ -42,15 +42,15 @@ export default class App extends Component {
     });
   }
 
-	formatMovieDescription(description) {
-		const words = description.split(' ');
+  formatMovieDescription(description) {
+    const words = description.split(' ');
 
-		if (words.length > 35) {
-			return `${words.slice(0, 35).join(' ')}...`;
-		}
+    if (words.length > 35) {
+      return `${words.slice(0, 35).join(' ')}...`;
+    }
 
-		return words.join(' ');
-	}
+    return words.join(' ');
+  }
 
   render() {
     const { moviesData } = this.state;

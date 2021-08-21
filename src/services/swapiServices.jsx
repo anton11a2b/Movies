@@ -14,8 +14,8 @@ export default class SwapiServices {
     return body;
   }
 
-	async getMovies() {
-		const res = await this.getResources(this.apiBase);
-		return res.results;
-	}
+  async getMovies() {
+    const res = await this.getResources(this.apiBase);
+    return res.results;
+  }
 }
