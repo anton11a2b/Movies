@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Alert } from 'antd';
 
-const ErrorIndicator = () => (
-  <Alert message="Error" description="The reqest you sent is invalid. Try again." type="error" showIcon />
-);
+const ErrorIndicator = ({ errorTitle }) => <Alert message="Error" description={errorTitle} type="error" showIcon />;
+
+ErrorIndicator.defaultProps = {
+  errorTitle: '',
+};
+
+ErrorIndicator.propTypes = {
+  errorTitle: PropTypes.string,
+};
 
 export default ErrorIndicator;

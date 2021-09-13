@@ -1,0 +1,18 @@
+.stringRequest {
+  width: 938px;
+  font-size: 16px;
+  padding: 9px 12px;
+  line-height: 22px;
+  margin: 34px 36px;
+  font-family: Inter;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1px solid #d9d9d9;
+}
+
+.stringRequest:focus,
+.stringRequest:active {
+  outline: none;
+  transition: all 0.3s;
+  border: 2px solid #40a9ff;
+}

@@ -4,7 +4,7 @@ import { Row } from 'antd';
 import Movie from '../movie/movie';
 import './moviesList.css';
 
-const MoviesList = ({ moviesData, loading }) => (
+const MoviesList = ({ moviesData }) => (
   <section className="main">
     <Row gutter={[36, 35]}>
       {moviesData.map(({ id, movieImgSrc, movieName, releaseDate, description }) => (
@@ -14,7 +14,6 @@ const MoviesList = ({ moviesData, loading }) => (
           movieName={movieName}
           releaseDate={releaseDate}
           description={description}
-          loading={loading}
         />
       ))}
     </Row>
@@ -22,12 +21,10 @@ const MoviesList = ({ moviesData, loading }) => (
 );
 
 MoviesList.defaultProps = {
-  loading: false,
   moviesData: [],
 };
 
 MoviesList.propTypes = {
-  loading: PropTypes.bool,
   moviesData: PropTypes.arrayOf(PropTypes.any),
 };
 

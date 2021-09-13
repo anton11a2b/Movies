@@ -1,6 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+body {
+	background: #E5E5E5 !important;
+}
+
 .movieApp {
   width: 1010px;
   margin: 0 auto;
+	background-color: #fff;
+}
+
+.paginator {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 30px;
 }
