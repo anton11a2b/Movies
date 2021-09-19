@@ -5,7 +5,7 @@ import MovieGenres from '../movieGenres/movieGenres';
 import { MdbapiServiceConsumer } from '../mdbApi-service-context/mdbApi-service-context';
 import './movie.css';
 
-const Movie = ({ movieImgSrc, movieName, releaseDate, description, average, genresId, sessionId, rating, id }) => {
+const Movie = ({ movieImgSrc, movieName, releaseDate, description, average, genresId, rating, id }) => {
   let className = 'movie-average';
 
   if (average >= 0 && average <= 3) {
@@ -49,7 +49,7 @@ const Movie = ({ movieImgSrc, movieName, releaseDate, description, average, genr
                 count={10}
                 defaultValue={rating}
                 style={{ fontSize: 17, marginBottom: 10 }}
-                onChange={(rating) => rateMovie(sessionId, String(id), rating)}
+                onChange={(rating) => rateMovie(String(id), rating)}
               />
             </div>
           </div>
@@ -64,7 +64,6 @@ Movie.defaultProps = {
   rating: 0,
   average: 0,
   genresId: [],
-  sessionId: '',
   movieName: '',
   movieImgSrc: '',
   releaseDate: '',
@@ -75,7 +74,6 @@ Movie.propTypes = {
   id: PropTypes.number,
   rating: PropTypes.number,
   average: PropTypes.number,
-  sessionId: PropTypes.string,
   movieName: PropTypes.string,
   movieImgSrc: PropTypes.string,
   releaseDate: PropTypes.string,

@@ -4,7 +4,7 @@ import { Row } from 'antd';
 import Movie from '../movie/movie';
 import './moviesList.css';
 
-const MoviesList = ({ moviesData, sessionId }) => (
+const MoviesList = ({ moviesData }) => (
   <section className="main">
     <Row gutter={[36, 35]}>
       {moviesData.map(({ id, movieImgSrc, movieName, releaseDate, description, average, genresId, rating }) => (
@@ -14,7 +14,6 @@ const MoviesList = ({ moviesData, sessionId }) => (
           rating={rating}
           average={average}
           genresId={genresId}
-          sessionId={sessionId}
           movieName={movieName}
           movieImgSrc={movieImgSrc}
           releaseDate={releaseDate}
@@ -26,12 +25,10 @@ const MoviesList = ({ moviesData, sessionId }) => (
 );
 
 MoviesList.defaultProps = {
-  sessionId: '',
   moviesData: [],
 };
 
 MoviesList.propTypes = {
-  sessionId: PropTypes.string,
   moviesData: PropTypes.arrayOf(PropTypes.any),
 };
 

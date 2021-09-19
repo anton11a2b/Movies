@@ -47,7 +47,9 @@ export default class MdbapiServices {
     }
   }
 
-  async getGuestSession(guestSessionId, fragment) {
+  async getGuestSession(fragment) {
+    const guestSessionId = localStorage.getItem('sessionId');
+
     const res = await fetch(
       `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?api_key=e3fe247be4eaa72ef7d3bce48bf58608${fragment}`
     );
@@ -61,9 +63,11 @@ export default class MdbapiServices {
     return body;
   }
 
-  rateMovie(sessionId, movieId, rating) {
+  rateMovie(movieId, rating) {
+    const guestSessionId = localStorage.getItem('sessionId');
+
     fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=e3fe247be4eaa72ef7d3bce48bf58608&guest_session_id=${sessionId}`,
+      `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=e3fe247be4eaa72ef7d3bce48bf58608&guest_session_id=${guestSessionId}`,
       {
         method: 'POST',
         headers: {

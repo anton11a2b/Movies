@@ -15,7 +15,6 @@ export default class App extends Component {
 
   state = {
     ratedPage: 1,
-    sessionId: '',
     searchPage: 1,
     searchString: '',
     ratedTotal: null,
@@ -28,17 +27,8 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.сreateSessionId();
-  }
-
-  сreateSessionId = async () => {
     this.mdbapiServices.сreateGuestSession();
-    const newSessionId = localStorage.getItem('sessionId');
-
-    this.setState({
-      sessionId: newSessionId,
-    });
-  };
+  }
 
   createMovieCard = (id, movieImgSrc, movieName, releaseDate, description, average, genresId, rating = 0) => ({
     id,
@@ -113,13 +103,11 @@ export default class App extends Component {
   };
 
   updateRatedPage = (page) => {
-    const { sessionId } = this.state;
-
     this.setState({
       ratedPage: page,
     });
 
-    this.updateRatedMovieList(sessionId, page);
+    this.updateRatedMovieList(page);
   };
 
   getImgSrc = (imgName) => {
@@ -168,10 +156,10 @@ export default class App extends Component {
   };
 
   callback = (activeKey) => {
-    const { sessionId, ratedPage } = this.state;
+    const { ratedPage } = this.state;
 
     if (activeKey === '2') {
-      this.updateRatedMovieList(sessionId, ratedPage);
+      this.updateRatedMovieList(ratedPage);
     }
   };
 
@@ -195,7 +183,7 @@ export default class App extends Component {
     }
   };
 
-  updateRatedMovieList = async (sessionId, page) => {
+  updateRatedMovieList = async (page) => {
     this.setState({
       ratedError: false,
       ratedLoading: true,
@@ -203,7 +191,7 @@ export default class App extends Component {
 
     try {
       const newPage = page % 2 === 0 ? page / 2 : (page + 1) / 2;
-      const movieList = await this.mdbapiServices.getGuestSession(sessionId, `&page=${newPage}`);
+      const movieList = await this.mdbapiServices.getGuestSession(`&page=${newPage}`);
 
       this.createRatedMovieList(movieList.results, page % 2 === 0);
 
@@ -236,7 +224,6 @@ export default class App extends Component {
   render() {
     const {
       ratedPage,
-      sessionId,
       errorTitle,
       searchPage,
       ratedTotal,
@@ -255,8 +242,8 @@ export default class App extends Component {
     const searchSpinner = searchLoading ? <Spinner /> : null;
     const searchErrorMessage = searchError ? <ErrorIndicator errorTitle={errorTitle} /> : null;
     const ratedErrorMessage = ratedError ? <ErrorIndicator errorTitle={errorTitle} /> : null;
-    const ratedContent = hasRatedData ? <MovieList moviesData={ratedMoviesData} sessionId={sessionId} /> : null;
-    const searchContent = hasSearchData ? <MovieList moviesData={searchMoviesData} sessionId={sessionId} /> : null;
+    const ratedContent = hasRatedData ? <MovieList moviesData={ratedMoviesData} /> : null;
+    const searchContent = hasSearchData ? <MovieList moviesData={searchMoviesData} /> : null;
     const searchPagination = searchTotal ? (
       <Pagination
         showSizeChanger={false}
