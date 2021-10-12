@@ -1,17 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 body {
-	background: #E5E5E5 !important;
+  background: #e5e5e5 !important;
 }
 
 .movieApp {
   width: 1050px;
   margin: 0 auto;
-	background-color: #fff;
+  background-color: #fff;
 }
 
 .paginator {
-	display: flex;
-	justify-content: center;
-	padding-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+@media (max-width: 1024px) {
+  .movieApp {
+    width: 420px;
+  }
 }

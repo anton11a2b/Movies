@@ -1,8 +1,15 @@
 .movie {
+  width: 470px;
   display: flex;
   height: 295px;
   overflow: hidden;
+  margin-right: 36px;
+  margin-bottom: 35px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.movie:nth-child(2n) {
+  margin-right: 0;
 }
 
 .movie-info {
@@ -36,11 +43,11 @@
 .movie-average {
   display: flex;
   min-width: 34px;
-  margin: 12px 9px;
   min-height: 34px;
   align-self: start;
   border-radius: 50%;
   align-items: center;
+  margin: 12px 9px 0 0;
   border: 2px solid #000;
   justify-content: center;
 }
@@ -83,6 +90,10 @@
   margin-right: 20px;
 }
 
+.movie-description__mobile {
+		display: none;
+	}
+
 ul {
   margin: 0;
   padding: 0;
@@ -92,7 +103,7 @@ ul {
 .movieGenres {
   margin: 0;
   display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .main-content {
@@ -100,4 +111,46 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .movie {
+		height: 245px;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .img-container {
+    width: 60px;
+    margin: 6px 13px 10px 10px;
+  }
+
+  .img-container img {
+    height: auto;
+    max-width: 60px;
+  }
+
+  .movie-title h2 {
+    margin: 4px 0 7px;
+  }
+
+  .movie-average {
+    margin: 5px 8px 0 0;
+  }
+
+  .movie-description {
+		display: none;
+  }
+
+	.movie-description__mobile {
+		margin-left: -70px;
+		display: block;
+	}
+
+	.movie-rate{
+		display: flex;
+		font-size: 14px;
+		margin-right: 10px;
+		justify-content: flex-end;
+	}
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Rate } from 'antd';
+import { Rate } from 'antd';
 import MovieGenres from '../movieGenres/movieGenres';
 import { MdbapiServiceConsumer } from '../mdbApi-service-context/mdbApi-service-context';
 import './movie.css';
@@ -21,29 +21,32 @@ const Movie = ({ movieImgSrc, movieName, releaseDate, description, average, genr
   return (
     <MdbapiServiceConsumer>
       {({ getGenres, rateMovie }) => (
-        <Col span={12}>
-          <div className="movie">
-            <div className="img-container">
-              <img alt="movieBaner" src={movieImgSrc} />
-            </div>
-            <div className="main-content">
-              <div className="movie-info">
-                <div className="movie-title">
-                  <h2>{movieName}</h2>
-                  <div className={className}>
-                    <p>{average}</p>
-                  </div>
+        <div className="movie">
+          <div className="img-container">
+            <img alt="movieBanner" src={movieImgSrc} />
+          </div>
+          <div className="main-content">
+            <div className="movie-info">
+              <div className="movie-title">
+                <h2>{movieName}</h2>
+                <div className={className}>
+                  <p>{average}</p>
                 </div>
-                <p className="movie-releaseDate">{releaseDate}</p>
-                <ul className="movieGenres">
-                  {genresId.map((id) => (
-                    <MovieGenres centered getGenres={getGenres} key={id} id={id} className="movieGenres-genre">
-                      Action
-                    </MovieGenres>
-                  ))}
-                </ul>
-                <p className="movie-description">{description}</p>
               </div>
+              <p className="movie-releaseDate">{releaseDate}</p>
+              <ul className="movieGenres">
+                {genresId.map((id) => (
+                  <MovieGenres centered getGenres={getGenres} key={id} id={id} className="movieGenres-genre">
+                    Action
+                  </MovieGenres>
+                ))}
+              </ul>
+              <p className="movie-description">{description}</p>
+            </div>
+            <div>
+              <p className="movie-description movie-description__mobile">{description}</p>
+            </div>
+            <div className="movie-rate">
               <Rate
                 allowHalf
                 count={10}
@@ -53,7 +56,7 @@ const Movie = ({ movieImgSrc, movieName, releaseDate, description, average, genr
               />
             </div>
           </div>
-        </Col>
+        </div>
       )}
     </MdbapiServiceConsumer>
   );
