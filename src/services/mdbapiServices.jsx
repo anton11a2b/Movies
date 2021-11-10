@@ -1,6 +1,10 @@
 export default class MdbapiServices {
+  rootPath = 'https://api.themoviedb.org/';
+
+  apiKey = 'e3fe247be4eaa72ef7d3bce48bf58608';
+
   async getResources(fragment) {
-    const apiBase = 'https://api.themoviedb.org/3/search/movie?api_key=e3fe247be4eaa72ef7d3bce48bf58608';
+    const apiBase = `${this.rootPath}3/search/movie?api_key=${this.apiKey}`;
     const res = await fetch(`${apiBase}${fragment}`);
 
     if (!res.ok) {
@@ -12,6 +16,39 @@ export default class MdbapiServices {
     if (body.results.length === 0) {
       throw new Error();
     }
+
+    return body;
+  }
+
+  async сreateGuestSession() {
+    const sessionId = localStorage.getItem('sessionId');
+
+    if (!sessionId) {
+      const apiAuthentication = `${this.rootPath}3/authentication/guest_session/new?api_key=${this.apiKey}`;
+      const authentication = await fetch(apiAuthentication);
+
+      if (!authentication.ok) {
+        throw new Error();
+      }
+
+      const guestSession = await authentication.json();
+
+      localStorage.setItem('sessionId', guestSession.guest_session_id);
+    }
+  }
+
+  async getGuestSession(fragment) {
+    const guestSessionId = localStorage.getItem('sessionId');
+
+    const res = await fetch(
+      `${this.rootPath}3/guest_session/${guestSessionId}/rated/movies?api_key=${this.apiKey}${fragment}`
+    );
+
+    if (!res.ok) {
+      throw new Error();
+    }
+
+    const body = await res.json();
 
     return body;
   }
@@ -29,54 +66,17 @@ export default class MdbapiServices {
     return body.genres;
   }
 
-  async сreateGuestSession() {
-    const sessionId = localStorage.getItem('sessionId');
-
-    if (!sessionId) {
-      const apiAuthentication =
-        'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=e3fe247be4eaa72ef7d3bce48bf58608';
-      const authentication = await fetch(apiAuthentication);
-
-      if (!authentication.ok) {
-        throw new Error();
-      }
-
-      const guestSession = await authentication.json();
-
-      localStorage.setItem('sessionId', guestSession.guest_session_id);
-    }
-  }
-
-  async getGuestSession(fragment) {
+  rateMovie = (movieId, rating) => {
     const guestSessionId = localStorage.getItem('sessionId');
 
-    const res = await fetch(
-      `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?api_key=e3fe247be4eaa72ef7d3bce48bf58608${fragment}`
-    );
-
-    if (!res.ok) {
-      throw new Error();
-    }
-
-    const body = await res.json();
-
-    return body;
-  }
-
-  rateMovie(movieId, rating) {
-    const guestSessionId = localStorage.getItem('sessionId');
-
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=e3fe247be4eaa72ef7d3bce48bf58608&guest_session_id=${guestSessionId}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify({
-          value: rating,
-        }),
-      }
-    );
-  }
+    fetch(`${this.rootPath}3/movie/${movieId}/rating?api_key=${this.apiKey}&guest_session_id=${guestSessionId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        value: rating,
+      }),
+    });
+  };
 }

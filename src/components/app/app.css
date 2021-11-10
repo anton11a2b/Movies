@@ -21,3 +21,9 @@ body {
     width: 420px;
   }
 }
+
+@media (max-width: 420px) {
+  .movieApp {
+    width: 360px;
+  }
+}

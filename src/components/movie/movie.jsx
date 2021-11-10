@@ -1,22 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Rate } from 'antd';
+import PropTypes from 'prop-types';
+
 import MovieGenres from '../movieGenres/movieGenres';
-import { MdbapiServiceConsumer } from '../mdbApi-service-context/mdbApi-service-context';
+
+import classN from '../../utils/className';
+import { MdbapiServiceConsumer } from '../../context/mdbApi-service-context';
+
 import './movie.css';
 
 const Movie = ({ movieImgSrc, movieName, releaseDate, description, average, genresId, rating, id }) => {
-  let className = 'movie-average';
-
-  if (average >= 0 && average <= 3) {
-    className += ' movie-average__border-rad';
-  } else if (average > 3 && average <= 5) {
-    className += ' movie-average__border-orange';
-  } else if (average > 5 && average <= 7) {
-    className += ' movie-average__border-yellow';
-  } else if (average > 7) {
-    className += ' movie-average__border-green';
-  }
+  const className = classN(average);
 
   return (
     <MdbapiServiceConsumer>

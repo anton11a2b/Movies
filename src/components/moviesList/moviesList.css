@@ -8,8 +8,14 @@
 	flex-wrap: wrap;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 1024px) {
   .main {
 		margin: 10px 16px 1px;
+  }
+}
+
+@media (max-width: 420px) {
+  .main {
+		margin: 10px 10px 1px;
   }
 }
